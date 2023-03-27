@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\DetailPropertyController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SimulasiKprController;
+use App\Models\DetailProperty;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +18,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+})->name('landing');
+
+
+// Route::get('/propertyDetail/{slug}', [DetailPropertyController::class, 'index'])->name('propertyDetail');
+Route::get('detail/{slug}', [DetailPropertyController::class, 'index'])->name('propertyDetail');
+
+Route::get('/searchproperty', [SearchController::class, 'index'])->name('search.prop');
+
+Route::get('/SimulasiKpr', [SimulasiKprController::class, 'index'])->name('simulasi.kpr');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
