@@ -17,4 +17,10 @@ class NearbyProperty extends Model
         'distance',
         'rating',
     ];
+
+    public function homeproperty()
+    {
+        return $this->belongsTo(HomeProperty::class, 'home_property_id');
+    }
+
 }

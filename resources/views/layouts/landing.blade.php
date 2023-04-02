@@ -865,6 +865,7 @@
         <script src="{{ asset('property/js/light.js') }}"></script>
         <script src="{{ asset('property/js/map4.js') }}"></script>
 
+
         <!-- Slider Revolution scripts -->
         <script src="revolution/{{ asset('property/js/jquery.themepunch.tools.min.js') }}"></script>
         <script src="revolution/{{ asset('property/js/jquery.themepunch.revolution.min.js') }}"></script>
@@ -985,6 +986,75 @@
                         },
                     },
                 ],
+            });
+        </script>
+        <script>
+            $('.style1').owlCarousel({
+                loop: true,
+                margin: 10,
+                autoplay: false,
+                autoplayTimeout: 5000,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    400: {
+                        items: 1,
+                        margin: 20
+                    },
+                    500: {
+                        items: 1,
+                        margin: 20
+                    },
+                    768: {
+                        items: 1,
+                        margin: 20
+                    },
+                    991: {
+                        items: 1,
+                        margin: 20
+                    },
+                    1000: {
+                        items: 1,
+                        margin: 20
+                    }
+                }
+            });
+        </script>
+        <script>
+            $('.style2').owlCarousel({
+                loop: true,
+                margin: 0,
+                dots: false,
+                autoWidth: false,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                responsive: {
+                    0: {
+                        items: 2,
+                        margin: 20
+                    },
+                    400: {
+                        items: 2,
+                        margin: 20
+                    },
+                    500: {
+                        items: 3,
+                        margin: 20
+                    },
+                    768: {
+                        items: 4,
+                        margin: 20
+                    },
+                    992: {
+                        items: 5,
+                        margin: 20
+                    },
+                    1000: {
+                        items: 6,
+                        margin: 20
+                    }
+                }
             });
         </script>
 

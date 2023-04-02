@@ -9,27 +9,26 @@
                             <a href="index.html" class="logo">
                                 <img src="{{ asset('property/images/marker.png') }}" alt="netcom">
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum incidunt architecto
-                                soluta laboriosam, perspiciatis, aspernatur officiis esse.</p>
+                            <p>{{ $contactus->description }}</p>
                         </div>
                         <div class="contactus">
                             <ul>
                                 <li>
                                     <div class="info">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        <p class="in-p">95 South Park Avenue, USA</p>
+                                        <p class="in-p">{{ $contactus->address }}</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="info">
                                         <i class="fa fa-phone" aria-hidden="true"></i>
-                                        <p class="in-p">+456 875 369 208</p>
+                                        <p class="in-p">{{ $contactus->phone }}</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="info">
                                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                                        <p class="in-p ti">support@Indo.STH.com</p>
+                                        <p class="in-p ti">{{ $contactus->email }}</p>
                                     </div>
                                 </li>
                             </ul>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\DetailPropertyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -31,6 +32,7 @@ Route::get('/', function () {
 Route::get('detail/{slug}', [DetailPropertyController::class, 'index'])->name('propertyDetail');
 
 Route::get('/searchproperty', [SearchController::class, 'index'])->name('search.prop');
+Route::get('/aboutus', [AboutUsController::class, 'index'])->name('aboutus');
 
 Route::get('/SimulasiKpr', [SimulasiKprController::class, 'index'])->name('simulasi.kpr');
 
