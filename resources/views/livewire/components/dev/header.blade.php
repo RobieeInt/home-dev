@@ -128,7 +128,7 @@
                                 </ul>
                             </li> --}}
                             <li><a href="{{ route('simulasi.kpr') }}">Simulasi Kpr</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="{{ route('aboutus') }}">About Us</a></li>
                             <li class="d-none d-xl-none d-block d-lg-block"><a href="login.html">Login</a></li>
                             <li class="d-none d-xl-none d-block d-lg-block"><a href="register.html">Register</a>
                             </li>
@@ -142,14 +142,14 @@
                 <!-- Left Side Content / End -->
 
                 <!-- Right Side Content / End -->
-                <div class="right-side d-none d-none d-lg-none d-xl-flex">
+                {{-- <div class="right-side d-none d-none d-lg-none d-xl-flex">
                     <!-- Header Widget -->
                     <div class="header-widget">
                         <a href="add-property.html" class="button border">Add Listing<i
                                 class="fas fa-laptop-house ml-2"></i></a>
                     </div>
                     <!-- Header Widget / End -->
-                </div>
+                </div> --}}
                 <!-- Right Side Content / End -->
 
                 <!-- Right Side Content / End -->
@@ -177,7 +177,7 @@
                 <!-- Right Side Content / End -->
 
                 <!-- lang-wrap-->
-                <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex">
+                {{-- <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex">
                     <div class="lang-wrap">
                         <div class="show-lang"><span><i class="fas fa-globe-americas"></i><strong>ENG</strong></span><i
                                 class="fa fa-caret-down arrlan"></i></div>
@@ -188,7 +188,7 @@
                             <li><a href="#" data-lantext="De">Deutsch</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 <!-- lang-wrap end-->
 
             </div>
