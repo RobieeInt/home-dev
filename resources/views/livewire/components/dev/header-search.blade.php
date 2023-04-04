@@ -1,5 +1,4 @@
 <div>
-    <!-- div with background image center backgroundsize cover and paragraph middle of background-->
 
     <body>
         <section class="h-100 w-100 bg-white" style="box-sizing: border-box; ">
