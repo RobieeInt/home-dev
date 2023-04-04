@@ -45,6 +45,9 @@
 
     <link rel="stylesheet" href="{{ asset('property/css/search-form.css') }}" />
 
+    <link rel="stylesheet" href="{{ asset('property/css/maps.css') }}">
+
+
     @livewireStyles
 </head>
 
@@ -765,7 +768,8 @@
                                         <label>Username or Email Address * </label>
                                         <input name="email" type="text" onClick="this.select()" value="">
                                         <label>Password * </label>
-                                        <input name="password" type="password" onClick="this.select()" value="">
+                                        <input name="password" type="password" onClick="this.select()"
+                                            value="">
                                         <button type="submit" class="log-submit-btn"><span>Log In</span></button>
                                         <div class="clearfix"></div>
                                         <div class="filter-tags">
@@ -866,9 +870,22 @@
         <script src="{{ asset('property/js/map4.js') }}"></script>
 
 
+        <script src="{{ asset('property/js/slick3.js') }}"></script>
+
+
         <!-- Slider Revolution scripts -->
         <script src="revolution/{{ asset('property/js/jquery.themepunch.tools.min.js') }}"></script>
         <script src="revolution/{{ asset('property/js/jquery.themepunch.revolution.min.js') }}"></script>
+
+        <script>
+            $(window).on('scroll load', function() {
+                $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));
+            });
+        </script>
+
+        <!-- Slider Revolution scripts -->
+        <script src="revolution/js/jquery.themepunch.tools.min.js"></script>
+        <script src="revolution/js/jquery.themepunch.revolution.min.js"></script>
 
         <script>
             var swiper = new Swiper('.swiper-container', {
