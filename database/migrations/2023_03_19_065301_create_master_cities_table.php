@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('province_id')->constrained('master_provinces');
             $table->timestamps();
             $table->softDeletes();
