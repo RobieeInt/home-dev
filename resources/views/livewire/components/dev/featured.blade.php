@@ -68,7 +68,21 @@
                                             <h3 class="title mt-3">
                                                 <a href="{{ route('propertyDetail', $home->slug) }}">
                                                     {{-- number format --}}
-                                                    IDR {{ number_format($home->detail->price) }}
+                                                    {{-- IDR {{ number_format($home->detail->price) }} --}}
+                                                    IDR
+                                                    @if (strlen($home->detail->price) == 4)
+                                                        {{ number_format($home->detail->price / 1000, 0) }} Ribu
+                                                    @elseif (strlen($home->detail->price) == 5)
+                                                        {{ number_format($home->detail->price / 1000, 0) }} Ribu
+                                                    @elseif (strlen($home->detail->price) == 6)
+                                                        {{ number_format($home->detail->price / 1000, 0) }} Ribu
+                                                    @elseif (strlen($home->detail->price) == 7)
+                                                        {{ number_format($home->detail->price / 1000000, 0) }} Juta
+                                                    @elseif (strlen($home->detail->price) == 8)
+                                                        {{ number_format($home->detail->price / 1000000, 0) }} Juta
+                                                    @elseif (strlen($home->detail->price) == 9)
+                                                        {{ number_format($home->detail->price / 1000000, 0) }} Juta
+                                                    @endif
                                                 </a>
                                             </h3>
                                             <div class="compare">
