@@ -24,7 +24,10 @@ class SearchProperties extends Component
         $master_units = MasterUnit::all();
          //get master_city
         $master_cities = MasterCity::all();
-        $properties = HomeProperty::with('province', 'city', 'detail', 'amenities', 'nearby', 'user', 'images', 'unit')->get();
+        // $properties = HomeProperty::with('province', 'city', 'detail', 'amenities', 'nearby', 'user', 'images', 'unit')->get();
+
+        //get HomeProperty with province, city,detail,amenities, nearby, user, images, unit where all model deleted_at = null
+        $properties = HomeProperty::with('province', 'city', 'detail', 'amenities', 'nearby', 'user', 'images', 'unit')->whereNull('deleted_at')->get();
 
         //get $properties as global variable home and convert to array
         $this->home = $properties->toArray();
