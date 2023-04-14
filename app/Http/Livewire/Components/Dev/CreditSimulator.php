@@ -38,12 +38,19 @@ class CreditSimulator extends Component
         // }
 
         $months = $this->tenor * 12;
+        $months2 = ($this->tenor * 12) - ($this->tenorFixed);
         $monthsFixRate = $this->tenorFixed * 12;
         $this->monthsFixRate = $monthsFixRate;
         $monthlyFixRate = $interestFixRate / 1200;
         $monthlyFloatingRate = $interestFloatingRate / 1200;
         $monthlyPaymentFixRate = $principal * ($monthlyFixRate + ($monthlyFixRate / (pow(1 + $monthlyFixRate, $months) - 1)));
-        $monthlyPaymentFloatingRate = $principal * ($monthlyFloatingRate + ($monthlyFloatingRate / (pow(1 + $monthlyFloatingRate, $months) - 1)));
+
+        //kalkulasi sisa pinjaman
+        $sisaPinjaman = $principal - $monthlyPaymentFixRate;
+
+        // dd($sisaPinjaman);
+
+        $monthlyPaymentFloatingRate = $sisaPinjaman * ($monthlyFloatingRate + ($monthlyFloatingRate / (pow(1 + $monthlyFloatingRate, $months) - 1)));
         // $this->monthlyPaymentFix = number_format($monthlyPaymentFixRate, 0);
         $this->monthlyPaymentFix = number_format(floatval($monthlyPaymentFixRate), 0, ',', '.');
         $this->monthlyPaymentFloat = number_format(floatval($monthlyPaymentFloatingRate), 0, ',', '.');
