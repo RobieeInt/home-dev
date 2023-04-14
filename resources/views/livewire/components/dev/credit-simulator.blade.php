@@ -141,19 +141,20 @@
                                     <div class="mt-3">
                                         {{-- show jumlah_kredit, jangka waktu,  bunga fixrate & bunga floating --}}
                                         <h4 class="text-center text-red-400">Pinjaman</h4>
-                                        <h4 class="text-center text-red-400">{{ number_format($jumlah_kredit, 0) }}</h4>
+                                        <h4 class="text-center text-red-400">
+                                            Rp. {{ number_format($jumlah_kredit, 0) }}</h4>
                                     </div>
                                     <div class="mt-3 row">
                                         <div class="col-lg-6">
                                             {{-- show monthlyPaymentFix number format --}}
                                             <h4 class="text-center text-red-400">Bunga Flat</h4>
-                                            <h3 class="text-center text-red-400">Rp. {{ $fixedRate }}%
+                                            <h3 class="text-center text-red-400">{{ $fixedRate }}%
                                             </h3>
                                         </div>
                                         <div class="col-lg-6">
                                             {{-- show monthlyPaymentFix number format --}}
                                             <h4 class="text-center text-red-400">Bunga Floating</h4>
-                                            <h3 class="text-center text-red-400">Rp. {{ $floatingRate }}%
+                                            <h3 class="text-center text-red-400">{{ $floatingRate }}%
                                             </h3>
                                         </div>
                                     </div>
