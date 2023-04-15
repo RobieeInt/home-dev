@@ -16,25 +16,24 @@
                                         </span>
                                     </div> --}}
                                 <input type="text"
-                                    class="form-control @error('propertyPrice') is-invalid
+                                    class="form-control @error('harga_properti') is-invalid
 
                                     @enderror"
-                                    id="propertyPrice" wire:model.lazy="propertyPrice">
+                                    id="harga_properti" wire:model.lazy="harga_properti">
                                 {{-- @error('harga_properti')
                                         <span class="error">{{ $message }}</span>
                                     @enderror --}}
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="downPayment">Down Payment:</label>
+                            <label for="dp">Down Payment:</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         Rp.
                                     </span>
                                 </div>
-                                <input type="number" wire:model.lazy="downPayment" id="downPayment"
-                                    class="form-control">
+                                <input type="number" wire:model.lazy="dp" id="dp" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -49,16 +48,16 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="harga_properti">Jumlah Kredit</label>
+                            <label for="jumlah_kredit">Jumlah Kredit</label>
                             <input type="text" class="form-control"
                                 value="{{ number_format($jumlah_kredit, 0, '.', ',') }}" disabled>
                         </div>
                         <div class="col-sm-6">
-                            <label for="fixedRate">Bunga Fix Rate</label>
+                            <label for="bunga_fixed">Bunga Fix Rate</label>
 
                             <div class="input-group">
-                                <input class="form-control @error('fixedRate') is-invalid @enderror" type="text"
-                                    wire:model="fixedRate" />
+                                <input class="form-control @error('bunga_fixed') is-invalid @enderror" type="text"
+                                    wire:model="bunga_fixed" />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         %
@@ -67,10 +66,10 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="tenorFixed">Fixed Year</label>
+                            <label for="period_bunga_fixed">Fixed Year</label>
                             <div class="input-group">
-                                <input class="form-control @error('tenorFixed') is-invalid @enderror" type="number"
-                                    wire:model="tenorFixed" />
+                                <input class="form-control @error('period_bunga_fixed') is-invalid @enderror"
+                                    type="number" wire:model="period_bunga_fixed" />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         Tahun
@@ -79,11 +78,11 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="floatingRate">Bunga Floating</label>
+                            <label for="bunga_float">Bunga Floating</label>
 
                             <div class="input-group">
-                                <input class="form-control @error('floatingRate') is-invalid @enderror" type="number"
-                                    wire:model="floatingRate" />
+                                <input class="form-control @error('bunga_float') is-invalid @enderror" type="number"
+                                    wire:model="bunga_float" />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         %
@@ -112,7 +111,7 @@
                 </div>
             </div>
         </div>
-        @if ($monthlyPaymentFix)
+        @if ($data)
             <div class="col-md-12 col-lg-6">
                 <div class="col-lg-12">
                     <div class="tr-single-box">
@@ -126,14 +125,15 @@
                                         {{-- show monthlyPaymentFix number format --}}
                                         <h4 class="text-center">Angsuran <br> ( {{ $monthsFixRate }} Bulan Pertama )
                                         </h4>
-                                        <h3 class="text-center">Rp. {{ $monthlyPaymentFix }}
+                                        <h3 class="text-center">Rp. {{ number_format($monthlyPaymentFix, 0) }}
                                         </h3>
                                     </div>
                                     <div class="mt-5">
                                         {{-- show monthlyPaymentFix number format --}}
                                         <h4 class="text-center text-red-400">Angsuran Setelah Floating
                                         </h4>
-                                        <h3 class="text-center text-red-400">Rp. {{ $monthlyPaymentFloat }}
+                                        <h3 class="text-center text-red-400">Rp.
+                                            {{ number_format($monthlyPaymentFloat) }}
                                         </h3>
                                     </div>
                                 </div>
@@ -142,19 +142,19 @@
                                         {{-- show jumlah_kredit, jangka waktu,  bunga fixrate & bunga floating --}}
                                         <h4 class="text-center text-red-400">Pinjaman</h4>
                                         <h4 class="text-center text-red-400">
-                                            Rp. {{ number_format($jumlah_kredit, 0) }}</h4>
+                                            Rp. {{ number_format($harga_pokok_pinjaman, 0) }}</h4>
                                     </div>
                                     <div class="mt-3 row">
                                         <div class="col-lg-6">
                                             {{-- show monthlyPaymentFix number format --}}
                                             <h4 class="text-center text-red-400">Bunga Flat</h4>
-                                            <h3 class="text-center text-red-400">{{ $fixedRate }}%
+                                            <h3 class="text-center text-red-400">{{ $bunga_fixed }}%
                                             </h3>
                                         </div>
                                         <div class="col-lg-6">
                                             {{-- show monthlyPaymentFix number format --}}
                                             <h4 class="text-center text-red-400">Bunga Floating</h4>
-                                            <h3 class="text-center text-red-400">{{ $floatingRate }}%
+                                            <h3 class="text-center text-red-400">{{ $bunga_float }}%
                                             </h3>
                                         </div>
                                     </div>
