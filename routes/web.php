@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\AboutUsController;
-use App\Http\Controllers\DetailPropertyController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\SimulasiKprController;
 use App\Models\DetailProperty;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SimulasiKprController;
+use App\Http\Controllers\DetailPropertyController;
+use App\Http\Controllers\SimulasiKprTableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::get('/searchproperty', [SearchController::class, 'index'])->name('search.
 Route::get('/aboutus', [AboutUsController::class, 'index'])->name('aboutus');
 
 Route::get('/SimulasiKpr', [SimulasiKprController::class, 'index'])->name('simulasi.kpr');
+Route::get('/SimulasiKprTable', [SimulasiKprTableController::class, 'index'])->name('simulasi.kpr.table');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

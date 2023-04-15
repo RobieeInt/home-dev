@@ -50,7 +50,7 @@ class CreditSimulator extends Component
 
         // dd($sisaPinjaman);
 
-        $monthlyPaymentFloatingRate = $sisaPinjaman * ($monthlyFloatingRate + ($monthlyFloatingRate / (pow(1 + $monthlyFloatingRate, $months) - 1)));
+        $monthlyPaymentFloatingRate = $principal * ($monthlyFloatingRate + ($monthlyFloatingRate / (pow(1 + $monthlyFloatingRate, $months) - 1)));
         // $this->monthlyPaymentFix = number_format($monthlyPaymentFixRate, 0);
         $this->monthlyPaymentFix = number_format(floatval($monthlyPaymentFixRate), 0, ',', '.');
         $this->monthlyPaymentFloat = number_format(floatval($monthlyPaymentFloatingRate), 0, ',', '.');
