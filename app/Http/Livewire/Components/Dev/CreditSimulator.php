@@ -6,8 +6,8 @@ use Livewire\Component;
 
 class CreditSimulator extends Component
 {
-    public $harga_properti = 1000000000; //harga properti
-    public $dp = 100000000; //dp 20%
+    public $harga_properti; //harga properti
+    public $dp; //dp 20%
     public $harga_pokok_pinjaman; //total pinjaman = $harga_properti - $dp *
     public $tenor = 15; //jangka waktu
     public $bunga_fixed = 5.5; //bunga fixed selama rentan waktu
@@ -28,23 +28,72 @@ class CreditSimulator extends Component
     public $monthlyPaymentFloat;
 
 
-    // public $propertyPrice = 1000000000;
-    // public $downPayment = 50000000;
-    // public $fixedRateTenor = 3;
-    // public $fixedRateInterest = 5.8;
-    // public $floatingRateInterest = 9.4;
-    // public $tenor = 10;
+    public $SisaTahun;
+
+    protected $casts = [
+        'harga_properti' => 'integer',
+        'dp' => 'integer',
+        'persentase' => 'integer',
+        'jumlah_kredit' => 'integer',
+
+    ];
+
+    protected $rules = [
+        'harga_properti' => 'required|not_regex:/^Rp\s\d{1,3}(\.\d{3})*?$/',
+        'dp' => 'required|numeric',
+        'persentase' => 'required|numeric',
+        'tenor' => 'required|numeric',
+        'bunga_fixed' => 'required|numeric',
+        'period_bunga_fixed' => 'required|numeric',
+        'bunga_float' => 'required|numeric',
+    ];
+
+
+    public function updatedDp($value)
+    {
+        $harga_properti = str_replace('.', '', $this->harga_properti);
+        $value = str_replace('.', '', $value);
+        // dd($value);
+        $this->persentase = $value / $harga_properti * 100;
+        $dp = str_replace('.', '', $this->dp);
+        $this->jumlah_kredit = $harga_properti - $dp;
+        //dp numberformat
+        // $this->dp = number_format($dp, 0, '.', ',');
+        $this->dp = $dp;
+
+    }
+
+    public function updatedPersentase($value)
+    {
+        $harga_properti = str_replace('.', '', $this->harga_properti);
+        $this->dp = $value / 100 * $harga_properti;
+        $dp = str_replace('.', '', $this->dp);
+        $this->jumlah_kredit = $harga_properti - $dp;
+        $this->dp = $dp;
+    //    $this->dp = number_format($dp, 0, '.', ',');
+    }
+
 
     public function calculate()
     {
-        $this->harga_pokok_pinjaman = $this->harga_properti - $this->dp;
+        //clear variable $data
+        // $this->data = null;
+        //validation
+        $this->validate();
+
+        $harga_properti = str_replace('.', '', $this->harga_properti);
+        $dp = str_replace('.', '', $this->dp);
+        // dd($dp);
+        $this->harga_pokok_pinjaman = $harga_properti - $dp;
         $this->sisa_pinjaman = $this->harga_pokok_pinjaman;
         $harga_pokok_pinjaman = $this->harga_pokok_pinjaman;
         $this->monthsFixRate = $this->period_bunga_fixed * 12;
 
+
+        $this->SisaTahun = ($this->tenor - $this->period_bunga_fixed);
         $sisa_pinjaman = $this->sisa_pinjaman;
-        $harga_properti = $this->harga_properti;
-        $dp = $this->dp;
+        // $harga_properti = $this->harga_properti;
+        // $dp = $this->dp;
         $tenor = $this->tenor;
         $bunga_fixed = $this->bunga_fixed;
         $period_bunga_fixed = $this->period_bunga_fixed;
@@ -114,6 +163,7 @@ class CreditSimulator extends Component
         }
         $total_bunga = $total_bunga + $angs_bunga;
 
+        $this->dp = number_format($dp, 0, '.', ',');
     }
 
     $this->data = array(
@@ -131,154 +181,11 @@ class CreditSimulator extends Component
 
 
 
-    //   dd($this->data['installment']);
-        // $monthlyPaymentFloatingRate = $principal * ($monthlyFloatingRate + ($monthlyFloatingRate / (pow(1 + $monthlyFloatingRate, $months) - 1)));
-        // $this->monthlyPaymentFix = number_format($monthlyPaymentFixRate, 0);
-        // $this->monthlyPaymentFix = number_format(floatval($total_angs), 0, ',', '.');
-        // $this->monthlyPaymentFloat = number_format(floatval($total_angsFloat), 0, ',', '.');
-    // }
-
     public function render()
     {
 
         return view('livewire.components.dev.credit-simulator');
     }
-
-    // public function calculateFixedRateTotalPayment()
-    // {
-    //     $fixedRateMonthlyInterest = $this->fixedRateInterest / 12 / 100;
-    //     $fixedRateTenorMonths = $this->fixedRateTenor * 12;
-    //     $totalLoan = $this->propertyPrice - $this->downPayment;
-    //     $fixedRateTotalPayment = ($fixedRateMonthlyInterest * $totalLoan * pow(1 + $fixedRateMonthlyInterest, $fixedRateTenorMonths)) / (pow(1 + $fixedRateMonthlyInterest, $fixedRateTenorMonths) - 1) * $fixedRateTenorMonths;
-
-    //     // dd($fixedRateTotalPayment);
-    //     return $fixedRateTotalPayment;
-    // }
-
-    //     return view('livewire.components.dev.credit-simulator');
-    // }
-
-
-
-    // public function calculateLoan()
-    // {
-    //     $principal = $this->propertyPrice - $this->downPayment;
-
-    //     $fixRateMonth = $this->fixRateYear * 12;
-    //     $fixRateInterestMonthly = $this->fixRateInterest / 100 / 12;
-    //     $fixRatePayment = ($principal * $fixRateInterestMonthly) / (1 - pow(1 + $fixRateInterestMonthly, -$fixRateMonth));
-
-    //     $floatingRateMonth = $this->floatingRateYear * 12;
-    //     $floatingRateInterestMonthly = $this->floatingRateInterest / 100 / 12;
-    //     $floatingRatePayment = ($principal * $floatingRateInterestMonthly) / (1 - pow(1 + $floatingRateInterestMonthly, -$floatingRateMonth));
-
-    //     $remainingYears = $this->loanTerm - $this->fixRateYear;
-    //     if ($remainingYears > 0) {
-    //         $remainingMonths = $remainingYears * 12;
-    //         $remainingInterestMonthly = $this->floatingRateInterest / 100 / 12;
-    //         $remainingPayment = ($principal * $remainingInterestMonthly) / (1 - pow(1 + $remainingInterestMonthly, -$remainingMonths));
-    //         $monthlyPayment = $fixRatePayment + $remainingPayment;
-    //     } else {
-    //         $monthlyPayment = $fixRatePayment;
-    //     }
-
-    //     return view('livewire.components.dev.credit-simulator', [
-    //         'principal' => $principal,
-    //         'fixRatePayment' => $fixRatePayment,
-    //         'floatingRatePayment' => $floatingRatePayment,
-    //         'monthlyPayment' => $monthlyPayment,
-    //     ]);
-    // }
-
-    // public function updatedFixRateInterest()
-    // {
-    //     if ($this->fixRateInterest < $this->floatingRateInterest) {
-    //         $this->floatingRateInterest = $this->fixRateInterest;
-    //     }
-    // }
-
-    // public function updatedFloatingRateInterest()
-    // {
-    //     if ($this->floatingRateInterest > $this->fixRateInterest) {
-    //         $this->fixRateInterest = $this->floatingRateInterest;
-    //     }
-    // }
-
-    //numberFormat
-    public function updatedDownPayment()
-    {
-
-
-        if ($this->harga_properti && $this->dp && $this->persentase != ($this->dp / $this->harga_properti * 100)) {
-            $this->persentase = $this->dp / $this->harga_properti * 100;
-            $this->jumlah_kredit = $this->harga_properti - $this->dp;
-
-        }
-    }
-
-    public function updatedPersentase(){
-
-        if ($this->harga_properti && $this->persentase && $this->dp != ($this->harga_properti * $this->persentase / 100)) {
-            $this->dp = $this->harga_properti * $this->persentase / 100;
-            $this->jumlah_kredit = $this->harga_properti - $this->dp;
-        }
-    }
-
-
-    // public function calculate()
-    // {
-    //     $fixRateTenor = $this->fixRateTenor * 12; // konversi tenor fix rate ke dalam bulan
-    //     $floatingRateTenor = $this->floatingRateTenor * 12; // konversi tenor floating rate ke dalam bulan
-
-    //     $totalLoanAmount = $this->propertyPrice - $this->downPayment;
-    //     $remainingLoanAmount = $totalLoanAmount;
-    //     $interestRate = $this->fixRateInterest / 100 / 12; // konversi suku bunga fix rate menjadi suku bunga per bulan
-    //     $floatingRateInterestRate = $this->floatingRateInterest / 100 / 12; // konversi suku bunga floating rate menjadi suku bunga per bulan
-
-    //     $payments = [];
-
-    //     for ($i = 1; $i <= $fixRateTenor; $i++) {
-    //         $monthlyInterest = $remainingLoanAmount * $interestRate;
-    //         $fixRatePayment = $this->calculatePayment($totalLoanAmount, $interestRate, $fixRateTenor - $i + 1);
-
-    //         $payments[] = [
-    //             'month' => $i,
-    //             'fixRatePayment' => $fixRatePayment,
-    //             'floatingRatePayment' => 0, // inisialisasi biaya floating rate dengan 0
-    //             'remainingLoanAmount' => $remainingLoanAmount - $fixRatePayment,
-    //             'year' => ceil($i / 12)
-    //         ];
-
-    //         $remainingLoanAmount -= $fixRatePayment;
-    //         $remainingLoanAmount += $monthlyInterest;
-    //     }
-
-    //     for ($i = $fixRateTenor + 1; $i <= $fixRateTenor + $floatingRateTenor; $i++) {
-    //         $monthlyInterest = $remainingLoanAmount * $floatingRateInterestRate;
-    //         $floatingRatePayment = $this->calculatePayment($totalLoanAmount, $floatingRateInterestRate, $floatingRateTenor - ($i - $fixRateTenor) + 1);
-
-    //         $payments[] = [
-    //             'month' => $i,
-    //             'fixRatePayment' => 0, // biaya fix rate di set 0
-    //             'floatingRatePayment' => $floatingRatePayment,
-    //             'remainingLoanAmount' => $remainingLoanAmount - $floatingRatePayment,
-    //             'year' => ceil($i / 12)
-    //         ];
-
-    //         $remainingLoanAmount -= $floatingRatePayment;
-    //         $remainingLoanAmount += $monthlyInterest;
-    //     }
-
-    //     $this->payments = $payments;
-    // }
-
-    // private function calculatePayment($totalLoanAmount, $interestRate, $numberOfPayments)
-    // {
-    //     $payment = $totalLoanAmount * $interestRate * pow(1 + $interestRate, $numberOfPayments) / (pow(1 + $interestRate, $numberOfPayments) - 1);
-
-    //     return round($payment, 2);
-    // }
-
 
 
 }

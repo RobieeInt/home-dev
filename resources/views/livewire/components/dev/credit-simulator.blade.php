@@ -10,36 +10,46 @@
                         <div class="col-sm-6">
                             <label for="harga_properti">Harga Rumah</label>
                             <div class="input-group">
-                                {{-- <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            Rp.
-                                        </span>
-                                    </div> --}}
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Rp.
+                                    </span>
+                                </div>
                                 <input type="text"
                                     class="form-control @error('harga_properti') is-invalid
 
                                     @enderror"
-                                    id="harga_properti" wire:model.lazy="harga_properti">
+                                    type-currency="IDR" id="harga_properti" wire:model.lazy="harga_properti">
                                 {{-- @error('harga_properti')
                                         <span class="error">{{ $message }}</span>
                                     @enderror --}}
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label for="dp">Down Payment:</label>
+                            <label for="dp">Down Payment</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         Rp.
                                     </span>
                                 </div>
-                                <input type="number" wire:model.lazy="dp" id="dp" class="form-control">
+                                <input type="text"
+                                    class="form-control @error('harga_properti') is-invalid
+
+                                @enderror"
+                                    type-currency="IDR" id="dp" wire:model.lazy="dp">
+                                {{-- @error('harga_properti')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror --}}
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label for="persentase">DP Persentase:</label>
                             <div class="input-group">
-                                <input type="number" wire:model.lazy="persentase" id="persentase" class="form-control">
+                                <input type="number" wire:model.lazy="persentase" id="persentase"
+                                    class="form-control @error('persentase') is-invalid
+
+                                @enderror">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         %
@@ -119,53 +129,35 @@
                             <div class="tr-single-header">
                                 <h4><i class="far fa-credit-card pr-2"></i>Hasil</h4>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5 content-center">
-                                    <div class="mt-3">
-                                        {{-- show monthlyPaymentFix number format --}}
-                                        <h4 class="text-center">Angsuran <br> ( {{ $monthsFixRate }} Bulan Pertama )
-                                        </h4>
-                                        <h3 class="text-center">Rp. {{ number_format($monthlyPaymentFix, 0) }}
-                                        </h3>
-                                    </div>
-                                    <div class="mt-5">
-                                        {{-- show monthlyPaymentFix number format --}}
-                                        <h4 class="text-center text-red-400">Angsuran Setelah Floating
-                                        </h4>
-                                        <h3 class="text-center text-red-400">Rp.
-                                            {{ number_format($monthlyPaymentFloat) }}
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 content-center">
-                                    <div class="mt-3">
-                                        {{-- show jumlah_kredit, jangka waktu,  bunga fixrate & bunga floating --}}
-                                        <h4 class="text-center text-red-400">Pinjaman</h4>
-                                        <h4 class="text-center text-red-400">
-                                            Rp. {{ number_format($harga_pokok_pinjaman, 0) }}</h4>
-                                    </div>
-                                    <div class="mt-3 row">
-                                        <div class="col-lg-6">
-                                            {{-- show monthlyPaymentFix number format --}}
-                                            <h4 class="text-center text-red-400">Bunga Flat</h4>
-                                            <h3 class="text-center text-red-400">{{ $bunga_fixed }}%
-                                            </h3>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            {{-- show monthlyPaymentFix number format --}}
-                                            <h4 class="text-center text-red-400">Bunga Floating</h4>
-                                            <h3 class="text-center text-red-400">{{ $bunga_float }}%
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3">
-                                        {{-- show jumlah_kredit, jangka waktu,  bunga fixrate & bunga floating --}}
-                                        <h4 class="text-center text-red-400">Jangka Waktu</h4>
-                                        <h4 class="text-center text-red-400">{{ $tenor }} Tahun</h4>
-                                    </div>
-                                </div>
-                            </div>
+                            {{-- <div class="table-responsive"> --}}
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Plafon Pinjaman</td>
+                                        <td> Rp. {{ number_format($harga_pokok_pinjaman, 0) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Suku Bunga Flat</td>
+                                        <td>{{ $bunga_fixed }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Angsuran <br> ({{ $period_bunga_fixed }} Tahun Pertama)</td>
+                                        <td style="align-items: center;">Rp. {{ number_format($monthlyPaymentFix, 0) }}0
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Suku Bunga Floating</td>
+                                        <td>{{ $bunga_float }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Angsuran Floating <br> ({{ $SisaTahun }} Tahun)</td>
+                                        <td>Rp.
+                                            {{ number_format($monthlyPaymentFloat) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                        {{-- </div> --}}
                     </div>
                 </div>
             </div>
@@ -175,29 +167,36 @@
 
 @section('js')
     <script>
-        //number format currency
         document.addEventListener('livewire:load', () => {
-
             document.querySelectorAll('input[type-currency="IDR"]').forEach((element) => {
-                element.addEventListener('keyup', function(e) {
-                    let cursorPostion = this.selectionStart;
-                    let value = parseInt(this.value.replace(/[^,\d]/g, ''));
-                    let originalLenght = this.value.length;
-                    if (isNaN(value)) {
-                        this.value = "";
-                    } else {
-                        this.value = value.toLocaleString('id-ID', {
-                            currency: 'IDR',
-                            style: 'currency',
-                            minimumFractionDigits: 0
-                        });
-                        cursorPostion = this.value.length - originalLenght + cursorPostion;
-                        this.setSelectionRange(cursorPostion, cursorPostion);
-                    }
+                // Format nilai pada saat halaman pertama kali dimuat
+                formatCurrencyValue(element);
+
+                // Tambahkan event listener untuk event change dan input pada elemen input
+                element.addEventListener('change', function(e) {
+                    formatCurrencyValue(this);
+                });
+                element.addEventListener('input', function(e) {
+                    formatCurrencyValue(this);
                 });
             });
-
-
         });
+
+        function formatCurrencyValue(element) {
+            let cursorPosition = element.selectionStart;
+            let value = parseInt(element.value.replace(/[^,\d]/g, ''));
+            let originalLength = element.value.length;
+            if (isNaN(value)) {
+                element.value = "";
+            } else {
+                element.value = value.toLocaleString('id-ID', {
+                    // currency: 'IDR',
+                    // style: 'currency',
+                    minimumFractionDigits: 0
+                });
+                cursorPosition = element.value.length - originalLength + cursorPosition;
+                element.setSelectionRange(cursorPosition, cursorPosition);
+            }
+        }
     </script>
 @endsection
